@@ -9,29 +9,33 @@ namespace Webdiff
 {
     class VectorRgb
     {
-        private int r;
-        private int g;
-        private int b;
+        public double R;
+        public double G;
+        public double B;
 
-        public VectorRgb(int r, int g, int b)
+        public VectorRgb(double r, double g, double b)
         {
-            this.b = b;
-            this.g = g;
-            this.r = r;
+            this.B = b;
+            this.G = g;
+            this.R = r;
         }
 
         public VectorRgb(Color pixel)
         {
-            r = pixel.R;
-            g = pixel.G;
-            b = pixel.B;
+            R = pixel.R;
+            G = pixel.G;
+            B = pixel.B;
         }
-
+        
         public VectorRgb()
         {
-            r = 0;
-            g = 0;
-            b = 0;
+            Random rnd = new Random();
+            R = rnd.Next();
+            G = rnd.Next();
+            B = rnd.Next();
         }
+
+        public static VectorRgb operator -(VectorRgb first, VectorRgb second) => new VectorRgb(first.R - second.R, first.G - second.G, first.B - second.B);
+        public static VectorRgb operator *(VectorRgb first, VectorRgb second) => new VectorRgb(first.R*second.R, first.G*second.G, first.B*second.B);
     }
 }
