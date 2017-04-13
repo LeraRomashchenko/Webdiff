@@ -12,8 +12,8 @@ namespace Webdiff
         {
             const double eps = 0.1;
             if (first.ShiftX == second.ShiftX && first.ShiftY == second.ShiftY)
-                return (1 - eps);
-            return eps;
+                return (eps);
+            return (1 - eps);
         }
 
         public static List<List<VectorRgb>> ProbabilityByShift(int h, int w, List<List<VectorRgb>> first, List<List<VectorRgb>> second, List<List<Shift>> shift)
