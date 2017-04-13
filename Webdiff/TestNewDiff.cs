@@ -16,10 +16,10 @@ namespace Webdiff
 
         public void TestTemp()
         {
-            var url1 = @"C:\Users\romashchenko\Desktop\diplom\1_3.png";
-            var url2 = @"C:\Users\romashchenko\Desktop\diplom\1_3.png";
+            var url1 = @"C:\Users\romashchenko\Desktop\diplom\1_1.png";
+            var url2 = @"C:\Users\romashchenko\Desktop\diplom\2_1.png";
 
-            CompareByUrls(url1, url2).Save(@"C:\Users\romashchenko\Desktop\diplom\out-3.png");
+            CompareByUrls(url1, url2).Save(@"C:\Users\romashchenko\Desktop\diplom\out.png");
         }
         public void TestTemp(string outUrl)
         {

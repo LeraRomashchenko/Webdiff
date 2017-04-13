@@ -36,6 +36,7 @@ namespace Webdiff
         }
 
         public static VectorRgb operator -(VectorRgb first, VectorRgb second) => new VectorRgb(first.R - second.R, first.G - second.G, first.B - second.B);
+        public static VectorRgb operator +(VectorRgb first, VectorRgb second) => new VectorRgb(first.R + second.R, first.G + second.G, first.B + second.B);
         public static VectorRgb operator *(VectorRgb first, VectorRgb second) => new VectorRgb(first.R*second.R, first.G*second.G, first.B*second.B);
     }
 }

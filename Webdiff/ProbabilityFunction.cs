@@ -29,22 +29,22 @@ namespace Webdiff
                     var f = first[i][j];
                     var s = second[newX][newY];
                     
-                    double diffR = Math.Exp(-Math.Pow(f.R - s.R, 2)/2);
-                    double diffG = Math.Exp(-Math.Pow(f.G - s.G, 2) / 2);
-                    double diffB = Math.Exp(-Math.Pow(f.B - s.B, 2) / 2);
-//                    if (Math.Abs(diffR) <= Math.Pow(1, -Math.Pow(10, 10000)))
-//                    {
-//                        diffR = 0.001;
-//                    }
-//                    if (Math.Abs(diffG) <= Math.Pow(1, -Math.Pow(10, 10000)))
-//                    {
-//                        diffG = 0.001;
-//                    }
-//                    if (Math.Abs(diffB) <= Math.Pow(1, -Math.Pow(10, 1000)))
-//                    {
-//                        diffB = 0.001;
-//                    }
-                    probMatrix[i].Add(new VectorRgb(diffR, diffB, diffG));
+                    double diffR = Math.Pow(f.R - s.R, 2)/2;
+                    double diffG = Math.Pow(f.G - s.G, 2)/2;
+                    double diffB = Math.Pow(f.B - s.B, 2)/2;
+                    if (Math.Abs(diffR) == 0)
+                    {
+                        diffR = 0.01;
+                    }
+                    if (Math.Abs(diffG) == 0)
+                    {
+                        diffG = 0.01;
+                    }
+                    if (Math.Abs(diffB) == 0)
+                    {
+                        diffB = 0.01;
+                    }
+                    probMatrix[i].Add(new VectorRgb(diffR, diffG, diffB));
                 }
             }
             return probMatrix;
@@ -54,16 +54,17 @@ namespace Webdiff
         {
             List<List<VectorRgb>> probMatrix = ProbabilityByShift(h, w, first, second, shift);
             Debug.PrintMatrix(probMatrix, @"C:\Users\romashchenko\Dropbox\univer_diplom\debug\probMatrix");
-            VectorRgb mult = new VectorRgb(1, 1, 1);
+            VectorRgb mult = new VectorRgb(0, 0, 0);
             for (int i = 1; i < h - 1; i++)
             {
                 for (int j = 1; j < w - 1; j++)
                 {
-                    mult *= probMatrix[i][j];
+                   var temp = probMatrix[i][j];
                     foreach (var neighbor in new[] { shift[i - 1][j], shift[i + 1][j], shift[i][j - 1], shift[i][j + 1] })
                     {
-                        mult *= new VectorRgb(ProbabilityByNeighbors(shift[i][j], neighbor), ProbabilityByNeighbors(shift[i][j], neighbor), ProbabilityByNeighbors(shift[i][j], neighbor));
+                        temp *= new VectorRgb(ProbabilityByNeighbors(shift[i][j], neighbor), ProbabilityByNeighbors(shift[i][j], neighbor), ProbabilityByNeighbors(shift[i][j], neighbor));
                     }
+                    mult += temp;
                 }
             }
             return mult;
