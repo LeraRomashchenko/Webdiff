@@ -10,10 +10,15 @@ namespace Webdiff
     {
         public int ShiftX;
         public int ShiftY;
-        
-        public Shift(int minX, int minY, int maxX, int maxY)
+
+        public Shift(int x, int y)
         {
-            Random rnd = new Random();
+            ShiftX = x;
+            ShiftY = y;
+        }
+
+        public Shift(int minX, int minY, int maxX, int maxY, Random rnd)
+        {
             ShiftX = rnd.Next(minX, maxX);
             ShiftY = rnd.Next(minY, maxY);
         }

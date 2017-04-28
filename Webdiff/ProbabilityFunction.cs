@@ -69,5 +69,16 @@ namespace Webdiff
             }
             return mult;
         }
+
+        public static double ProbabilityOfShift(Shift a, Shift b, Shift c, Shift d, Shift o, List<List<VectorRgb>> first, List<List<VectorRgb>> second, int i, int j)
+        {
+            return ExecuteDistance(o,a)*ExecuteDistance(o,b)*ExecuteDistance(o,c)*ExecuteDistance(o,d); // TODO вторя часть функции вероятности
+        }
+
+        public static double ExecuteDistance(Shift o, Shift x)
+        {
+            return Math.Sqrt(Math.Pow(o.ShiftX - x.ShiftX, 2) + Math.Pow(o.ShiftY - x.ShiftY, 2)) != 0 ?
+                Math.Sqrt(Math.Pow(o.ShiftX - x.ShiftX, 2) + Math.Pow(o.ShiftY - x.ShiftY, 2)) : 0.01;
+        }
     }
 }

@@ -16,6 +16,7 @@ namespace Webdiff
             List<List<VectorRgb>> matrix1 = new List<List<VectorRgb>>();
             List<List<VectorRgb>> matrix2 = new List<List<VectorRgb>>();
             List<List<Shift>> shiftMatrix = new List<List<Shift>>();
+            Random rnd = new Random();
             for (int i = 0; i < height; i++)
             {
                 matrix1.Add(new List<VectorRgb>());
@@ -23,7 +24,7 @@ namespace Webdiff
                 for (int j = 0; j < width; j++)
                 {
                     matrix1[i].Add(new VectorRgb(img1.GetPixel(j,i)));
-                    shiftMatrix[i].Add(new Shift(-j + 1, -i + 1, width - j - 1, height - i - 1));
+                    shiftMatrix[i].Add(new Shift(-j + 1, -i + 1, width - j - 1, height - i - 1, rnd));
                 }
             }
             for (int i = 0; i < height; i++)
@@ -40,8 +41,36 @@ namespace Webdiff
             Bitmap diff;
             Debug.DrawShiftedImage(img1, matrix2, shiftMatrix, out diff);
             var testProb = ProbabilityFunction.ProbabilityFinaly(height, width, matrix1, matrix2, shiftMatrix);
-
+            var isOdd = 0;
+            for (int i = 0; i < height; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    if ((i + j)%2 == isOdd)
+                    {
+                        List<double> probability = new List<double>();
+                        foreach (var shift in GetNearShifts(shiftMatrix[i][j]))
+                        {
+                            // TODO искать соседей и вызывать ProbabilityOfShift, выбирать максимум и так пока не сойдется
+                        }
+                    }
+               }
+            }
              return img1;
+        }
+
+        public static List<Shift> GetNearShifts(Shift center)
+        {
+            var radius = 5;
+            List<Shift> area = new List<Shift>();
+            for (int i = center.ShiftX; i <= center.ShiftX + radius; i++)
+            {
+                for (int j = center.ShiftY; j <= center.ShiftY + radius; j++)
+                {
+                    area.Add(new Shift(i,j));
+                }
+            }
+            return area;
         }
     }
 }
