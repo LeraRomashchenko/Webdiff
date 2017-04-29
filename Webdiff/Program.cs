@@ -12,7 +12,8 @@ namespace Webdiff
         static void Main(string[] args)
         {
             var test = new TestNewDiff();
-            test.TestTemp();
+             test.TestTemp();
+            //test.TestXorTemp();
         }
     }
 }

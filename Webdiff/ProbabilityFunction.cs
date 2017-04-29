@@ -72,13 +72,19 @@ namespace Webdiff
 
         public static double ProbabilityOfShift(Shift a, Shift b, Shift c, Shift d, Shift o, List<List<VectorRgb>> first, List<List<VectorRgb>> second, int i, int j)
         {
-            return ExecuteDistance(o,a)*ExecuteDistance(o,b)*ExecuteDistance(o,c)*ExecuteDistance(o,d); // TODO вторя часть функции вероятности
+            return ExecuteDistance(o,a)*ExecuteDistance(o,b)*ExecuteDistance(o,c)*ExecuteDistance(o,d)*
+                ExecuteDistance(first[i][j], second[i + o.ShiftX][j + o.ShiftY]);
         }
 
         public static double ExecuteDistance(Shift o, Shift x)
         {
             return Math.Sqrt(Math.Pow(o.ShiftX - x.ShiftX, 2) + Math.Pow(o.ShiftY - x.ShiftY, 2)) != 0 ?
                 Math.Sqrt(Math.Pow(o.ShiftX - x.ShiftX, 2) + Math.Pow(o.ShiftY - x.ShiftY, 2)) : 0.01;
+        }
+        public static double ExecuteDistance(VectorRgb s, VectorRgb p)
+        {
+            return Math.Sqrt(Math.Pow(s.R - p.R, 2) + Math.Pow(s.G - p.G, 2) + Math.Pow(s.B - p.B, 2)) != 0 ?
+                Math.Sqrt(Math.Pow(s.R - p.R, 2) + Math.Pow(s.G - p.G, 2) + Math.Pow(s.B - p.B, 2)) : 0.01;
         }
     }
 }
